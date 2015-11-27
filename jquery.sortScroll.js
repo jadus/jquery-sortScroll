@@ -30,8 +30,11 @@
                 var button = $(this),
                     elementCollection = self.container.find('.' + self.settings.sortableClass),
                     initialOrder = elementCollection.index(button.closest("." + self.settings.sortableClass)),
-                    orderModify;
-                (button.hasClass(self.settings.buttonClassUp)) ? orderModify = -1 : 1;
+                    orderModify = 1;
+                if (button.hasClass(self.settings.buttonClassUp))
+                {
+                    orderModify = -1;
+                }
                 event.preventDefault();
                 self.moveElement(initialOrder, orderModify);
             })
