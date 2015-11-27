@@ -4,7 +4,8 @@
 
     "use strict";
     var defaults = {
-        buttonClass: "sort-scroll-button",
+        buttonClassUp: "sort-scroll-button-up",
+        buttonClassDown: "sort-scroll-button-down",
         sortableClass: "sort-scroll-element",
         movingClass: "sort-scroll-moving",
         animationDuration: 1000,
@@ -23,12 +24,14 @@
         init: function ()
         {
             var self = this;
-            self.container.on("click", "." + self.settings.buttonClass, function (event)
+            console.log("." + self.settings.buttonClassUp + ", ." + self.settings.buttonClassDown);
+            self.container.on("click", "." + self.settings.buttonClassUp + ", ." + self.settings.buttonClassDown, function (event)
             {
                 var button = $(this),
                     elementCollection = self.container.find('.' + self.settings.sortableClass),
                     initialOrder = elementCollection.index(button.closest("." + self.settings.sortableClass)),
-                    orderModify = button.data("direction");
+                    orderModify;
+                (button.hasClass(self.settings.buttonClassUp)) ? orderModify = -1 : 1;
                 event.preventDefault();
                 self.moveElement(initialOrder, orderModify);
             })
@@ -131,7 +134,7 @@
 
             initialGhost.animate({
                 height: 0
-            }, duration, "swing");
+            }, duration, easing);
             finalGhost.animate({
                 height: height + "px"
             }, duration, easing);
