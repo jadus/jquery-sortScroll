@@ -1,106 +1,157 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <title>Jquery-sortscroll by jadus</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Jquery-sortscroll</h1>
-      <h2 class="project-tagline">Reordering without moving !</h2>
-      <a href="https://github.com/jadus/jquery-sortScroll" class="btn">View on GitHub</a>
-      <a href="https://github.com/jadus/jquery-sortScroll/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/jadus/jquery-sortScroll/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+    <title>jQuery sortScroll</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.0.0-alpha/jquery.sortScroll.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="container">
+    <h1 class="center">jquery-sortScroll</h1>
+    <h4 class="center">Sorting without moving !</h4>
+    <a href="https://github.com/jadus/jquery-sortScroll"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+</header>
+<div class="container sort-scroll-container">
+    <div class="card sort-scroll-element z-depth-0">
+        <div class="card-content">
+            <h4>Demo</h4>
 
-    <section class="main-content">
-      <div class="paragraph">
-      <h1><button class="button-up">up</button>
-<button class="button-down">down</button>
-<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h1>
-Click on the "down" button to change this paragraph's order in the page.<br/>
-This jquery plugin is specially useful when you want to sort blocks on a page taller than the screen.<br/>
-The element being sorted will stay still while the rest of the page will scroll behind it.</br>
-</div>
-<div class="paragraph">
-<h1><button class="button-up">up</button>
-<button class="button-down">down</button>
-<a id="simple-usage-example" class="anchor" href="#simple-usage-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simple usage example</h1>
+            <p>
+                Click on the "down" arrow to change this paragraph's order in the page.<br>
+                The element being sorted will stay still while the rest of the page will scroll behind it.
+            </p>
+        </div>
+        <div class="card-action">
+            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+        </div>
+    </div>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll-element<span class="pl-pds">"</span></span>&gt;
+    <div class="card sort-scroll-element z-depth-0">
+        <div class="card-content">
+            <h4>Set-up</h4>
+                <pre><code class="language-markup">&lt;!DOCTYPE html>
+&lt;html lang="en-us">
+&lt;head>
+
+    &lt;!-- insert css -->
+    &lt;link rel="stylesheet" href="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.0.0-alpha/jquery.sortScroll.css">
+&lt;/head>
+&lt;body>
+
+    &lt;!-- insert jquery.sortScroll.js after jquery core -->
+    &lt;script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js">&lt;/script>
+    &lt;script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.0.0-alpha/jquery.sortScroll.js">&lt;/script>
+&lt;/body></code></pre>
+        </div>
+        <div class="card-action">
+            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+        </div>
+    </div>
+    <div class="card sort-scroll-element z-depth-0">
+        <div class="card-content">
+            <h4>Basic usage</h4>
+                <pre><code class="language-markup">&lt;!-- automatic initialization using css classes and data attributes-->
+&lt;div class="sort-scroll-container">
+    &lt;div class="sort-scroll-element" data-animation-duration="1000" data-easing="swing">
         content1
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll-button<span class="pl-pds">"</span></span> <span class="pl-e">data-direction</span>=<span class="pl-s"><span class="pl-pds">"</span>-1<span class="pl-pds">"</span></span>&gt;up&lt;/<span class="pl-ent">button</span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll-button<span class="pl-pds">"</span></span> <span class="pl-e">data-direction</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;down&lt;/<span class="pl-ent">button</span>&gt;
-    &lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll-element<span class="pl-pds">"</span></span>&gt;
+        &lt;button class="sort-scroll-button-up">up&lt;/button>
+        &lt;button class="sort-scroll-button-down">down&lt;/button>
+    &lt;/div>
+    &lt;div class="sort-scroll-element">
         content2
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll-button<span class="pl-pds">"</span></span> <span class="pl-e">data-direction</span>=<span class="pl-s"><span class="pl-pds">"</span>-1<span class="pl-pds">"</span></span>&gt;up&lt;/<span class="pl-ent">button</span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll-button<span class="pl-pds">"</span></span> <span class="pl-e">data-direction</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;down&lt;/<span class="pl-ent">button</span>&gt;
-    &lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll-element<span class="pl-pds">"</span></span>&gt;
+        &lt;button class="sort-scroll-button-up">up&lt;/button>
+        &lt;button class="sort-scroll-button-down">down&lt;/button>
+    &lt;/div>
+    &lt;div class="sort-scroll-element">
         content3
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll-button<span class="pl-pds">"</span></span> <span class="pl-e">data-direction</span>=<span class="pl-s"><span class="pl-pds">"</span>-1<span class="pl-pds">"</span></span>&gt;up&lt;/<span class="pl-ent">button</span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sort-scroll-button<span class="pl-pds">"</span></span> <span class="pl-e">data-direction</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;down&lt;/<span class="pl-ent">button</span>&gt;
-    &lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
-</div>
-<div class="paragraph">
-<h1><button class="button-up">up</button>
-<button class="button-down">down</button>
-<a id="programatic-use" class="anchor" href="#programatic-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>Programatic use</h1>
-
-<div class="highlight highlight-source-js"><pre><span class="pl-c">//init plugin (default options below)</span>
-$(<span class="pl-s"><span class="pl-pds">"</span>.my-container-class<span class="pl-pds">"</span></span>).<span class="pl-en">sortScroll</span>(
+        &lt;button class="sort-scroll-button-up">up&lt;/button>
+        &lt;button class="sort-scroll-button-down">down&lt;/button>
+    &lt;/div>
+&lt;/div></code></pre>
+        </div>
+        <div class="card-action">
+            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+        </div>
+    </div>
+    <div class="card sort-scroll-element z-depth-0">
+        <div class="card-content">
+            <h4>Styling</h4>
+                <pre><code class="language-css">/**jQuery-sortScroll is adding .sort-scroll-sorting to the element being sorted**/
+.sort-scroll-sorting{
+    opacity: 0.6;
+}
+</code></pre>
+        </div>
+        <div class="card-action">
+            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+        </div>
+    </div>
+    <div class="card sort-scroll-element z-depth-0">
+        <div class="card-content">
+            <h4>Javascript initialization</h4>
+                <pre><code class="language-javascript">//showing default options here
+$(".my-container-class").sortScroll({
+    animationDuration: 1000,// duration of the animation in ms
+    easing: "swing"// easing type for the animation
+});</code></pre>
+        </div>
+        <div class="card-action">
+            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+        </div>
+    </div>
+    <div class="card element z-depth-0">
+        <div class="card-content">
+            <h4>Programmatic sorting</h4>
+                <pre><code class="language-javascript">//you can sort without buttons if you want
+//here we move the element in slot 3 (zero based) 2 slots up (in slot 1)
+$('.my-container-class').sortScroll('sortElement',3,-2)</code></pre>
+        </div>
+        <div class="card-action">
+            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+        </div>
+    </div>
+    <div class="card sort-scroll-element z-depth-0">
+        <div class="card-content">
+            <h4>Events</h4>
+                <pre><code class="language-javascript">//you can do something when sorting starts and when it's done
+$('.my-container-class').on('sortScroll.sortStart', function(event, element, initialOrder, destinationOrder)
 {
-    buttonClass<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>sort-scroll-button<span class="pl-pds">"</span></span>,<span class="pl-c">//css class for sorting buttons</span>
-    sortableClass<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>sort-scroll-element<span class="pl-pds">"</span></span>,<span class="pl-c">//css class for sortable elements</span>
-    movingClass<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>sort-scroll-moving<span class="pl-pds">"</span></span>,<span class="pl-c">//css class applied to the element being sorted</span>
-    animationDuration<span class="pl-k">:</span> <span class="pl-c1">1000</span>,<span class="pl-c">// duration of the animation in ms</span>
-    easing<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>swing<span class="pl-pds">"</span></span><span class="pl-c">// easing type for the animation</span>
-});
-
-<span class="pl-c">//you can do something when sorting is done</span>
-$(<span class="pl-s"><span class="pl-pds">'</span>.my-container-class<span class="pl-pds">'</span></span>).<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>sortScroll.sortEnd<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">event</span>, <span class="pl-smi">element</span>, <span class="pl-smi">initialOrder</span>, <span class="pl-smi">destinationOrder</span>)
-{
-    <span class="pl-k">var</span> title <span class="pl-k">=</span> <span class="pl-smi">element</span>.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>h2<span class="pl-pds">'</span></span>).<span class="pl-c1">text</span>();
-    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>element named <span class="pl-pds">"</span></span><span class="pl-k">+</span>title<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">"</span> was moved from slot n°<span class="pl-pds">"</span></span><span class="pl-k">+</span>initialOrder<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">"</span> to slot n°<span class="pl-pds">"</span></span><span class="pl-k">+</span> destinationOrder);
+    var title = element.find('h2').text();
+    console.log("element named "+title+" is being reordered from slot n°"+initialOrder+" to slot n°"+destinationOrder);
 }
 
-<span class="pl-c">//you don't really need buttons</span>
-$(<span class="pl-s"><span class="pl-pds">'</span>.my-container-class<span class="pl-pds">'</span></span>).<span class="pl-en">sortScroll</span>(<span class="pl-s"><span class="pl-pds">'</span>moveElement<span class="pl-pds">'</span></span>,<span class="pl-c1">3</span>,<span class="pl-k">-</span><span class="pl-c1">2</span>)<span class="pl-c">//move the element in slot 3 (zero based) 2 slots up (in slot 1)</span></pre></div>
+$('.my-container-class').on('sortScroll.sortEnd', function(event, element, initialOrder, destinationOrder)
+{
+    var title = element.find('h2').text();
+    console.log("element named "+title+" was reordered from slot n°"+initialOrder+" to slot n°"+destinationOrder);
+}</code></pre>
+        </div>
+        <div class="card-action">
+            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+        </div>
+    </div>
 </div>
-<div class="paragraph">
-<h1><button class="button-up">up</button>
-<button class="button-down">down</button>
-<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h1>
-If you encounter any problems, please use the <a href="https://github.com/jadus/jquery-sortScroll/issues">GitHub issue tracker</a>.<br/>
-If you like sortScroll.js and use it in the wild, <a href="mailto:lucas.menant@gmail.com">let me know</a>.<br/>
-</div>
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/jadus/jquery-sortScroll">Jquery-sortscroll</a> is maintained by <a href="https://github.com/jadus">jadus</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="http://rawgit.com/jadus/jquery-sortScroll/master/jquery.sortScroll.js"></script>
-  <script type="text/javascript">
-        $('.main-content').sortScroll({
-            buttonClassUp: "button-up",
-            buttonClassDown: "button-down",
-            sortableClass: "paragraph",
-            movingClass: "moving",
-            animationDuration: 2000,
-            easing: "swing"
-        })
-  </script>
-  </body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.0.0-alpha/jquery.sortScroll.js"></script>
+<script type="text/javascript" src="jquery.sortScroll.js"></script>
+<script type="text/javascript">
+    $('.container').on('sortScroll.sortStart sortScroll.sortEnd', function (event, element, initialOrder, destinationOrder) {
+        element.toggleClass("z-depth-1");
+        element.toggleClass("z-depth-0");
+    })
+</script>
+</body>
 </html>
