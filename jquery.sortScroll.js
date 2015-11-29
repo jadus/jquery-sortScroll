@@ -1,3 +1,7 @@
+
+//jadus
+//lucas.menant@gmail.com
+//https://github.com/jadus/jquery-sortScroll
 ;
 (function ($, window, document, undefined) {
 
