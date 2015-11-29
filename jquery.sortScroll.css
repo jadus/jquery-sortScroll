@@ -1,5 +1,10 @@
-.sort-scroll-moving {
+.sort-scroll-sorting {
+    z-index: 2;
     position: fixed;
     overflow: auto;
     width: inherit;
+}
+
+.sort-scroll-element{
+    margin-top: 0 !important;
 }

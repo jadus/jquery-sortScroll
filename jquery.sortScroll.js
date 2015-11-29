@@ -3,10 +3,6 @@
 
     "use strict";
     var defaults = {
-        buttonUpClass: "sort-scroll-button-up",
-        buttonDownClass: "sort-scroll-button-down",
-        sortableClass: "sort-scroll-element",
-        movingClass: "sort-scroll-moving",
         animationDuration: 1000,
         easing: "swing"
     };
@@ -15,29 +11,32 @@
 
         this.container = $(container);
         this.settings = $.extend({}, defaults, options, this.container.data());
-        this._moving = false;
+        this._sorting = false;
+        this.elementClass = "sort-scroll-element";
+        this.sortingClass = "sort-scroll-sorting";
+        this.buttonUpClass = "sort-scroll-button-up";
+        this.buttonDownClass = "sort-scroll-button-down";
         this.init();
     }
 
     $.extend(SortScroll.prototype, {
         init: function () {
             var self = this;
-            console.log('this.settings', this.settings);
-            self.container.on("click", "." + self.settings.buttonUpClass + ", ." + self.settings.buttonDownClass, function (event) {
+            self.container.on("click", "." + self.buttonUpClass + ", ." + self.buttonDownClass, function (event) {
                 var button = $(this),
-                    elementCollection = self.container.find('.' + self.settings.sortableClass),
-                    initialOrder = elementCollection.index(button.closest("." + self.settings.sortableClass)),
+                    elementCollection = self.container.find("." + self.elementClass),
+                    initialOrder = elementCollection.index(button.closest("." + self.elementClass)),
                     orderModify = 1;
-                if (button.hasClass(self.settings.buttonUpClass)) {
+                if (button.hasClass(self.buttonUpClass)) {
                     orderModify = -1;
                 }
                 event.preventDefault();
-                self.moveElement(initialOrder, orderModify);
+                self.sortElement(initialOrder, orderModify);
             })
         },
-        moveElement: function (initialOrder, orderModify) {
+        sortElement: function (initialOrder, orderModify) {
             var self = this,
-                elementCollection = self.container.find('.' + self.settings.sortableClass),
+                elementCollection = self.container.find('.' + self.elementClass),
                 maxOrder = elementCollection.length - 1,
                 destinationOrder = initialOrder + orderModify;
 
@@ -47,15 +46,15 @@
 
             var element = elementCollection.eq(initialOrder);
 
-            if (self._moving) {
+            if (self._sorting) {
                 self.container.one("sortScroll.sortEnd", function (event, element, initialOrder, destinationOrder) {
-                    self.moveElement(destinationOrder, orderModify);
+                    self.sortElement(destinationOrder, orderModify);
                 });
                 return false;
             }
 
             self.container.trigger("sortScroll.sortStart", [element, initialOrder, destinationOrder]);
-            self._moving = true;
+            self._sorting = true;
 
             var marginTop = parseInt(element.css('margin-top'), 10),
                 height = element.outerHeight(true),
@@ -64,7 +63,7 @@
                 removeDestination = false;
 
             if (destinationOrder === maxOrder) {
-                destinationElement = $("<div/>").addClass(self.settings.sortableClass);
+                destinationElement = $("<div/>").addClass(self.elementClass);
                 elementCollection.last().after(destinationElement);
                 removeDestination = true;
             }
@@ -117,7 +116,7 @@
             element.css({
                 top: fixedY + "px"
             });
-            element.addClass(self.settings.movingClass);
+            element.addClass(self.sortingClass);
 
             initialGhost.animate({
                 height: 0
@@ -133,7 +132,7 @@
             elementCollection.add($("html, body")).promise().done(function () {
                 initialGhost.remove();
                 finalGhost.remove();
-                element.removeClass(self.settings.movingClass);
+                element.removeClass(self.sortingClass);
                 element.css({
                     top: 0
                 });
@@ -141,7 +140,7 @@
                 if (removeDestination) {
                     destinationElement.remove();
                 }
-                self._moving = false;
+                self._sorting = false;
                 self.container.trigger("sortScroll.sortEnd", [element, initialOrder, destinationOrder]);
             });
 
@@ -164,6 +163,6 @@
 
 })(jQuery, window, document);
 
-$(".sort-scroll").each(function () {
+$(".sort-scroll-container").each(function () {
     $(this).sortScroll();
 });
