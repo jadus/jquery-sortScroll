@@ -1,0 +1,5 @@
+.sort-scroll-moving {
+    position: fixed;
+    overflow: auto;
+    width: inherit;
+}
