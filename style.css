@@ -1,8 +1,4 @@
-.card-title:first-letter {
-    font-size: 50px
-}
 
-.sort-scroll-moving {
-    z-index: 2;
+.sort-scroll-sorting {
     opacity: 0.6;
 }
