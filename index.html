@@ -114,7 +114,7 @@ $(".my-container-class").sortScroll({
                     </h4>
                         <pre><code class="language-javascript">//you can sort without buttons if you want
 //here we move the 4th element (3, zero based) up (-1) without scrolling the page (false)
-$('.my-container-class').sortScroll('sortElement',3,-1,false)</code></pre>
+$(".sort-scroll-container").sortScroll("sortElement",3,-1,false)</code></pre>
                 </div>
             </div>
             <div id="events" class="card sort-scroll-element z-depth-1 section scrollspy">
@@ -125,15 +125,15 @@ $('.my-container-class').sortScroll('sortElement',3,-1,false)</code></pre>
                         </div>
                     </h4>
                         <pre><code class="language-javascript">//you can do something when sorting starts and when it's done
-$('.my-container-class').on('sortScroll.sortStart', function(event, element, initialOrder, destinationOrder)
+$(".sort-scroll-container").on("sortScroll.sortStart", function(event, element, initialOrder, destinationOrder)
 {
-    var title = element.find('h2').text();
+    var title = element.find("h4").text();
     console.log("element named "+title+" is being reordered from slot n°"+initialOrder+" to slot n°"+destinationOrder);
 }
 
-$('.my-container-class').on('sortScroll.sortEnd', function(event, element, initialOrder, destinationOrder)
+$(".sort-scroll-container").on("sortScroll.sortEnd", function(event, element, initialOrder, destinationOrder)
 {
-    var title = element.find('h2').text();
+    var title = element.find("h4").text();
     console.log("element named "+title+" was reordered from slot n°"+initialOrder+" to slot n°"+destinationOrder);
 }</code></pre>
                 </div>
@@ -157,12 +157,12 @@ $('.my-container-class').on('sortScroll.sortEnd', function(event, element, initi
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 <script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.1.0/jquery.sortScroll.min.js"></script>
 <script type="text/javascript">
-    $('.sort-scroll-container').on('sortScroll.sortStart sortScroll.sortEnd', function (event, element, initialOrder, destinationOrder) {
+    $(".sort-scroll-container").on("sortScroll.sortStart sortScroll.sortEnd", function (event, element, initialOrder, destinationOrder) {
         element.toggleClass("z-depth-1").toggleClass("z-depth-2")
     })
     $(document).ready(function(){
-        $('.scrollspy').scrollSpy();
-        $('.table-of-contents').pushpin({ top: $('.table-of-contents').offset().top });
+        $(".scrollspy").scrollSpy();
+        $(".table-of-contents").pushpin({ top: $(".table-of-contents").offset().top });
     });
 </script>
 </body>
