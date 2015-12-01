@@ -6,35 +6,45 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
-    <link rel="stylesheet" href="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.0.0-alpha/jquery.sortScroll.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="container">
-    <h1 class="center">jquery-sortScroll</h1>
-    <h4 class="center">Sorting without moving !</h4>
-    <a href="https://github.com/jadus/jquery-sortScroll"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+<header>
+    <nav class="top-nav">
+      <div class="nav-wrapper center">
+          <h1>jquery-sortScroll</h1>
+          Sorting without moving !
+      </div>
+  </nav>
 </header>
-<div class="container sort-scroll-container">
-    <div class="card sort-scroll-element z-depth-0">
-        <div class="card-content">
-            <h4>Demo</h4>
+<div>
+    <div class="row">
+        <div class="col s12 m9 l9 sort-scroll-container" data-animation-duration="500" data-keep-still=true>
+            <div id="demo" class="card sort-scroll-element z-depth-1 section scrollspy">
+                <div class="card-content">
+                    <h4>Demo
+                        <div class="buttons">
+                            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+                            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+                        </div>
+                    </h4>
 
-            <p>
-                Click on the "down" arrow to change this paragraph's order in the page.<br>
-                The element being sorted will stay still while the rest of the page will scroll behind it.
-            </p>
-        </div>
-        <div class="card-action">
-            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
-            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
-        </div>
-    </div>
+                    <p>
+                        Click on the "down" arrow to change this paragraph's order in the page.<br>
+                        The element being sorted will stay still while the rest of the page will scroll behind it.
+                    </p>
+                </div>
 
-    <div class="card sort-scroll-element z-depth-0">
-        <div class="card-content">
-            <h4>Set-up</h4>
-                <pre><code class="language-markup">&lt;!DOCTYPE html>
+            </div>
+
+            <div id="set-up" class="card sort-scroll-element z-depth-1 section scrollspy">
+                <div class="card-content">
+                    <h4>Set-up<div class="buttons">
+                            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+                            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+                        </div>
+                    </h4>
+                        <pre><code class="language-markup">&lt;!DOCTYPE html>
 &lt;html lang="en-us">
 &lt;head>
 
@@ -47,18 +57,18 @@
     &lt;script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js">&lt;/script>
     &lt;script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.0.0-alpha/jquery.sortScroll.js">&lt;/script>
 &lt;/body></code></pre>
-        </div>
-        <div class="card-action">
-            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
-            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
-        </div>
-    </div>
-    <div class="card sort-scroll-element z-depth-0">
-        <div class="card-content">
-            <h4>Basic usage</h4>
-                <pre><code class="language-markup">&lt;!-- automatic initialization using css classes and data attributes-->
+                </div>
+            </div>
+            <div id="basic-usage" class="card sort-scroll-element z-depth-1 section scrollspy">
+                <div class="card-content">
+                    <h4>Basic usage<div class="buttons">
+                            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+                            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+                        </div>
+                    </h4>
+                        <pre><code class="language-markup">&lt;!-- automatic initialization using css classes and data attributes-->
 &lt;div class="sort-scroll-container">
-    &lt;div class="sort-scroll-element" data-animation-duration="1000" data-easing="swing">
+    &lt;div class="sort-scroll-element" data-animation-duration="1000" data-easing="swing" data-keep-still=true>
         content1
         &lt;button class="sort-scroll-button-up">up&lt;/button>
         &lt;button class="sort-scroll-button-down">down&lt;/button>
@@ -74,56 +84,57 @@
         &lt;button class="sort-scroll-button-down">down&lt;/button>
     &lt;/div>
 &lt;/div></code></pre>
-        </div>
-        <div class="card-action">
-            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
-            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
-        </div>
-    </div>
-    <div class="card sort-scroll-element z-depth-0">
-        <div class="card-content">
-            <h4>Styling</h4>
-                <pre><code class="language-css">/**jQuery-sortScroll is adding .sort-scroll-sorting to the element being sorted**/
+                </div>
+            </div>
+            <div id="styling" class="card sort-scroll-element z-depth-1 section scrollspy">
+                <div class="card-content">
+                    <h4>Styling<div class="buttons">
+                            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+                            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+                        </div>
+                    </h4>
+                        <pre><code class="language-css">/**jQuery-sortScroll is adding .sort-scroll-sorting to the element being sorted**/
 .sort-scroll-sorting{
-    opacity: 0.6;
+    background-color: yellow;
 }
 </code></pre>
-        </div>
-        <div class="card-action">
-            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
-            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
-        </div>
-    </div>
-    <div class="card sort-scroll-element z-depth-0">
-        <div class="card-content">
-            <h4>Javascript initialization</h4>
-                <pre><code class="language-javascript">//showing default options here
+                </div>
+            </div>
+            <div id="javascript-initialization" class="card sort-scroll-element z-depth-1 section scrollspy">
+                <div class="card-content">
+                    <h4>Javascript initialization<div class="buttons">
+                            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+                            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+                        </div>
+                    </h4>
+                        <pre><code class="language-javascript">//showing default options here
 $(".my-container-class").sortScroll({
     animationDuration: 1000,// duration of the animation in ms
-    easing: "swing"// easing type for the animation
+    easing: "swing",// easing type for the animation
+    keepStill: true// if false the page doesn't scroll to follow the element
 });</code></pre>
-        </div>
-        <div class="card-action">
-            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
-            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
-        </div>
-    </div>
-    <div class="card element z-depth-0">
-        <div class="card-content">
-            <h4>Programmatic sorting</h4>
-                <pre><code class="language-javascript">//you can sort without buttons if you want
-//here we move the element in slot 3 (zero based) 2 slots up (in slot 1)
-$('.my-container-class').sortScroll('sortElement',3,-2)</code></pre>
-        </div>
-        <div class="card-action">
-            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
-            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
-        </div>
-    </div>
-    <div class="card sort-scroll-element z-depth-0">
-        <div class="card-content">
-            <h4>Events</h4>
-                <pre><code class="language-javascript">//you can do something when sorting starts and when it's done
+                </div>
+            </div>
+            <div id="programmatic-sorting" class="card sort-scroll-element element z-depth-1 section scrollspy">
+                <div class="card-content">
+                    <h4>Programmatic sorting<div class="buttons">
+                            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+                            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+                        </div>
+                    </h4>
+                        <pre><code class="language-javascript">//you can sort without buttons if you want
+//here we move the 4th element (3, zero based) up (-1) without scrolling the page (false)
+$('.my-container-class').sortScroll('sortElement',3,-1,false)</code></pre>
+                </div>
+            </div>
+            <div id="events" class="card sort-scroll-element z-depth-1 section scrollspy">
+                <div class="card-content">
+                    <h4>Events<div class="buttons">
+                            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
+                            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+                        </div>
+                    </h4>
+                        <pre><code class="language-javascript">//you can do something when sorting starts and when it's done
 $('.my-container-class').on('sortScroll.sortStart', function(event, element, initialOrder, destinationOrder)
 {
     var title = element.find('h2').text();
@@ -135,23 +146,35 @@ $('.my-container-class').on('sortScroll.sortEnd', function(event, element, initi
     var title = element.find('h2').text();
     console.log("element named "+title+" was reordered from slot n°"+initialOrder+" to slot n°"+destinationOrder);
 }</code></pre>
+                </div>
+            </div>
         </div>
-        <div class="card-action">
-            <a href="#" class="sort-scroll-button-up"><i class="material-icons">arrow_upward</i></a>
-            <a href="#" class="sort-scroll-button-down"><i class="material-icons">arrow_downward</i></a>
+        <div class="col hide-on-small-only m3 l3">
+            <ul class="section table-of-contents">
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#set-up">Set-up</a></li>
+                <li><a href="#basic-usage">Basic usage</a></li>
+                <li><a href="#styling">Styling</a></li>
+                <li><a href="#javascript-initialization">Javascript initialization</a></li>
+                <li><a href="#programmatic-sorting">Programmatic sorting</a></li>
+                <li><a href="#events">Events</a></li>
+            </ul>
         </div>
     </div>
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
-<script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.0.0-alpha/jquery.sortScroll.js"></script>
+<!--<script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.0.0-alpha/jquery.sortScroll.js"></script>-->
 <script type="text/javascript" src="jquery.sortScroll.js"></script>
 <script type="text/javascript">
-    $('.container').on('sortScroll.sortStart sortScroll.sortEnd', function (event, element, initialOrder, destinationOrder) {
-        element.toggleClass("z-depth-1");
-        element.toggleClass("z-depth-0");
+    $('.sort-scroll-container').on('sortScroll.sortStart sortScroll.sortEnd', function (event, element, initialOrder, destinationOrder) {
+        element.toggleClass("z-depth-1").toggleClass("z-depth-2")
     })
+    $(document).ready(function(){
+        $('.scrollspy').scrollSpy();
+        $('.table-of-contents').pushpin({ top: $('.table-of-contents').offset().top });
+    });
 </script>
 </body>
 </html>
