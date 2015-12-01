@@ -125,14 +125,12 @@ $(".sort-scroll-container").sortScroll("sortElement",3,-1,false)</code></pre>
                         </div>
                     </h4>
                         <pre><code class="language-javascript">//you can do something when sorting starts and when it's done
-$(".sort-scroll-container").on("sortScroll.sortStart", function(event, element, initialOrder, destinationOrder)
-{
+$(".sort-scroll-container").on("sortScroll.sortStart", function(event, element, initialOrder, destinationOrder){
     var title = element.find("h4").text();
     console.log("element named "+title+" is being reordered from slot n°"+initialOrder+" to slot n°"+destinationOrder);
 }
 
-$(".sort-scroll-container").on("sortScroll.sortEnd", function(event, element, initialOrder, destinationOrder)
-{
+$(".sort-scroll-container").on("sortScroll.sortEnd", function(event, element, initialOrder, destinationOrder){
     var title = element.find("h4").text();
     console.log("element named "+title+" was reordered from slot n°"+initialOrder+" to slot n°"+destinationOrder);
 }</code></pre>
