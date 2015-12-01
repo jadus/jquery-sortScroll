@@ -115,7 +115,7 @@
                 top: relativeOtherElementY+"px"
             }, duration, easing);
             if(keepStill){
-                $("body").animate({scrollTop: finalScroll + "px"}, duration, easing);
+                $("html, body").animate({scrollTop: finalScroll + "px"}, duration, easing);
             }
 
             elementCollection.add($("html, body")).promise().done(function () {
