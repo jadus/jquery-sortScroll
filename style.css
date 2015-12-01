@@ -1,3 +1,17 @@
-.sort-scroll-sorting {
-    opacity: 0.6;
+.sort-scroll-element {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+nav{
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.nav-wrapper{
+    padding: 10px;
+}
+
+.buttons
+{
+    float: right;
 }
