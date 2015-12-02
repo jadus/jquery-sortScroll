@@ -1,17 +1,47 @@
-.sort-scroll-element {
-    background-color: rgba(255, 255, 255, 0.95);
+body
+{
+    background-color: #eae8e7;
 }
 
-nav{
-    height: auto;
-    margin-bottom: 20px;
+.main-action
+{
+    margin: 0.5rem 0 1rem 0;
+}
+
+.sort-scroll-sorting{
+    background-color: rgba(255, 255, 255, 0.80);
+}
+
+header
+{
+    background-color: #00bcd4;
+    height: 256px;
+    padding: 115px 16px 0;
+}
+
+.header-wrapper {
+    padding-left: 0;
+}
+
+.header-wrapper .header-title {
+    color: #fff;
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 1160px;
+    white-space: nowrap;
 }
 
 .nav-wrapper{
     padding: 10px;
 }
 
-.buttons
-{
+.buttons{
     float: right;
+}
+
+.collection{
+    border: none;
 }
