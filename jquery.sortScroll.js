@@ -1,8 +1,9 @@
 /*
- * jQuery sortScroll V1.1.0
+ * jQuery sortScroll V1.1.3
  * Sorting without moving !
  * The element being sorted will stay still while the rest of the page will scroll behind it.
  * https://github.com/jadus/jquery-sortScroll
+ * lucas.menant@gmail.com
  * Licensed under the MIT license
  */
 ;
@@ -58,9 +59,10 @@
 
             var element = elementCollection.eq(initialOrder);
 
+            //if method is called again before animation end, we wait and we call it again on animation end
             if (self._sorting) {
                 self.container.one("sortScroll.sortEnd", function (event, element, initialOrder, destinationOrder) {
-                    self.sortElement(destinationOrder, sortDirection);
+                    self.sortElement(destinationOrder, sortDirection, keepStill);
                 });
                 return false;
             }
@@ -97,17 +99,22 @@
             var duration = self.settings.animationDuration,
                 easing = self.settings.easing,
                 initialCssPosition = element.css("position"),
-                initialZIndexPosition = element.css("z-index"),
+                initialCssZIndex = element.css("z-index"),
                 sortingZIndex;
 
-            sortingZIndex = (initialZIndexPosition === "auto") ? 2 : initialZIndexPosition + 1;
+            sortingZIndex = (initialCssZIndex === "auto") ? 2 : initialCssZIndex + 1;
 
+            //modifying elements to animate them
             element.addClass(self.sortingClass);
             element.css({
                 "position": "relative",
                 "z-index": sortingZIndex
             });
+            otherElement.css({
+                "position": "relative",
+            });
 
+            //animating
             element.animate({
                 top: relativeElementY+"px"
             }, duration, easing);
@@ -118,19 +125,28 @@
                 $("html, body").animate({scrollTop: finalScroll + "px"}, duration, easing);
             }
 
+            //after animation
             elementCollection.add($("html, body")).promise().done(function () {
+                //elements back to normal
                 element.removeClass(self.sortingClass);
                 element.css({
                     "position": initialCssPosition,
-                    "z-index": initialZIndexPosition
+                    "z-index": initialCssZIndex
                 });
+                otherElement.css({
+                    "position": initialCssPosition,
+                });
+
+                //modifiyng dom
                 if(sortDirection > 0){
                     otherElement.after(element);
                 }else{
                     otherElement.before(element);
                 }
+
                 element.css("top", 0);
                 otherElement.css("top", 0);
+
                 self._sorting = false;
                 self.container.trigger("sortScroll.sortEnd", [element, initialOrder, destinationOrder]);
             });
