@@ -1,5 +1,5 @@
 /*
- * jQuery sortScroll V1.1.4
+ * jQuery sortScroll V1.1.3
  * Sorting without moving !
  * The element being sorted will stay still while the rest of the page will scroll behind it.
  * https://github.com/jadus/jquery-sortScroll
@@ -173,3 +173,6 @@
     });
 })(jQuery, window, document);
 
+$(".sort-scroll-container").each(function () {
+    $(this).sortScroll();
+});
