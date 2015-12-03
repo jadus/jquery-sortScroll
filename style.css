@@ -1,0 +1,19 @@
+body{
+    background-color: #eae8e7;
+}
+
+.main-action{
+    margin: 0.5rem 0 1rem 0;
+}
+
+.sort-scroll-sorting{
+    background-color: rgba(255, 255, 255, 0.80);
+}
+
+.buttons{
+    float: right;
+}
+
+.collection{
+    border: none;
+}
