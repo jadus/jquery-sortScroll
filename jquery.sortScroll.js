@@ -1,5 +1,5 @@
 /*
- * jQuery sortScroll V1.1.4
+ * jQuery sortScroll V1.2.0
  * Sorting without moving !
  * The element being sorted will stay still while the rest of the page will scroll behind it.
  * https://github.com/jadus/jquery-sortScroll
@@ -12,7 +12,7 @@
     "use strict";
     var defaults = {
         animationDuration: 1000,// duration of the animation in ms
-        easing: "swing",// easing type for the animation
+        cssEasing: "ease-in-out",// easing type for the animation
         keepStill: true// if false the page doesn't scroll to follow the element
     };
 
@@ -31,15 +31,17 @@
     $.extend(SortScroll.prototype, {
         init: function () {
             var self = this;
+
+
             //auto initialization
             self.container.on("click", "." + self.buttonUpClass + ", ." + self.buttonDownClass, function (event) {
+                event.preventDefault();
                 var button = $(this),
                     elementCollection = self.container.find("." + self.elementClass),
                     initialOrder = elementCollection.index(button.closest("." + self.elementClass)),
                     sortDirection;
 
                 sortDirection = button.hasClass(self.buttonUpClass) ? -1 : 1;
-                event.preventDefault();
                 self.sortElement(initialOrder, sortDirection, self.settings.keepStill);
             })
         },
@@ -53,11 +55,10 @@
                 destinationOrder = initialOrder + sortDirection;
 
 
+            //don't move if element is at one end of the list
             if (destinationOrder < 0 || destinationOrder > maxOrder) {
                 return false;
             }
-
-            var element = elementCollection.eq(initialOrder);
 
             //if method is called again before animation end, we wait and we call it again on animation end
             if (self._sorting) {
@@ -67,18 +68,18 @@
                 return false;
             }
 
-            self.container.trigger("sortScroll.sortStart", [element, initialOrder, destinationOrder]);
-            self._sorting = true;
+            elementCollection.each(function(){
+                $(this).css("top", 0);
+            });
 
-            var elementHeight = element.outerHeight(true),
+            var element = elementCollection.eq(initialOrder),
+                elementHeight = element.outerHeight(true),
                 initialElementY = element.offset().top,
                 otherElement = elementCollection.eq(destinationOrder),
                 otherElementHeight = otherElement.outerHeight(true),
                 initialOtherElementY = otherElement.offset().top,
                 finalElementY = otherElement.offset().top,
                 finalOtherElementY = initialOtherElementY + elementHeight,
-                maxScroll = Math.max(0, document.documentElement.scrollHeight - document.documentElement.clientHeight),
-                initialScroll = $(window).scrollTop(),
                 modifyElementRelative = 0,
                 modifyOtherElementRelative = parseInt(otherElement.css("margin-top"),10);
 
@@ -91,51 +92,69 @@
 
             var relativeElementY = finalElementY - initialElementY - modifyElementRelative,
                 relativeOtherElementY = finalOtherElementY - initialOtherElementY - modifyOtherElementRelative,
-                finalScroll = initialScroll + relativeElementY;
-
-            finalScroll = Math.min(finalScroll, maxScroll);
-            finalScroll = Math.max(finalScroll, 0);
-
-            var duration = self.settings.animationDuration,
-                easing = self.settings.easing,
-                initialCssPosition = element.css("position"),
+                duration = self.settings.animationDuration,
+                cssEasing = self.settings.cssEasing,
+                body = $("body"),
+                initialElementStyleAttr = element.attr("style") || '',
+                initialOtherElementStyleAttr = otherElement.attr("style") || '',
+                initialBodyStyleAttr = body.attr("style") || '',
                 initialCssZIndex = element.css("z-index"),
+                elementDfd = $.Deferred(),
+                otherElementDfd = $.Deferred(),
+                bodyDfd = $.Deferred(),
+                transitionEndEvent = "transitionend webkitTransitionEnd msTransitionEnd oTransitionEnd",
                 sortingZIndex;
+
 
             sortingZIndex = (initialCssZIndex === "auto") ? 2 : initialCssZIndex + 1;
 
-            //modifying elements to animate them
-            element.addClass(self.sortingClass);
-            element.css({
-                "position": "relative",
-                "z-index": sortingZIndex
+            //animating
+            self.container.trigger("sortScroll.sortStart", [element, initialOrder, destinationOrder]);
+            self._sorting = true;
+            element.add(otherElement).css({
+                "position" : "relative",
+                "transition" : duration+"ms "+cssEasing
+            })
+            element.addClass(self.sortingClass).css({
+                "z-index": sortingZIndex,
+                "top": relativeElementY+"px",
             });
             otherElement.css({
-                "position": "relative",
+                "top": relativeOtherElementY+"px",
             });
+            if(keepStill) {
+                var initialScroll = $(window).scrollTop(),
+                    finalScroll = initialScroll + relativeElementY,
+                    maxScroll = Math.max(0, document.documentElement.scrollHeight - document.documentElement.clientHeight);
 
-            //animating
-            element.animate({
-                top: relativeElementY+"px"
-            }, duration, easing);
-            otherElement.animate({
-                top: relativeOtherElementY+"px"
-            }, duration, easing);
-            if(keepStill){
-                $("html, body").animate({scrollTop: finalScroll + "px"}, duration, easing);
+                finalScroll = Math.min(finalScroll, maxScroll);
+                finalScroll = Math.max(finalScroll, 0);
+
+                body.css({
+                    "transition" : duration+"ms "+cssEasing,
+                    "margin-top": ( initialScroll - finalScroll ) + "px"
+                });
             }
 
             //after animation
-            elementCollection.add($("html, body")).promise().done(function () {
-                //elements back to normal
+            element.on(transitionEndEvent, function () {
+                elementDfd.resolve();
+            })
+            otherElement.on(transitionEndEvent, function () {
+                otherElementDfd.resolve();
+            })
+            body.on(transitionEndEvent, function () {
+                bodyDfd.resolve();
+            })
+            $.when(elementDfd, otherElementDfd, bodyDfd).done(function () {
+                //back to initial style
+                element.attr("style",initialElementStyleAttr);
+                otherElement.attr("style",initialOtherElementStyleAttr);
+                body.attr("style",initialBodyStyleAttr);
+                if(keepStill) {
+                    $("html, body").scrollTop(finalScroll + ($(window).scrollTop() - initialScroll));
+                }
                 element.removeClass(self.sortingClass);
-                element.css({
-                    "position": initialCssPosition,
-                    "z-index": initialCssZIndex
-                });
-                otherElement.css({
-                    "position": initialCssPosition,
-                });
 
                 //modifiyng dom
                 if(sortDirection > 0){
@@ -144,13 +163,10 @@
                     otherElement.before(element);
                 }
 
-                element.css("top", 0);
-                otherElement.css("top", 0);
-
                 self._sorting = false;
                 self.container.trigger("sortScroll.sortEnd", [element, initialOrder, destinationOrder]);
+                return;
             });
-
         }
     });
 
