@@ -2,6 +2,11 @@ body{
     background-color: #eae8e7;
 }
 
+h1 span{
+    font-size: 18px;
+    line-height: normal;
+}
+
 .main-action{
     margin: 0.5rem 0 1rem 0;
 }
