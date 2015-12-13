@@ -11,7 +11,7 @@
 <body>
 <div>
     <div class="row">
-        <div class="col l3">
+        <div class="col l3 navigation">
             <div class="card z-depth-1 blue white-text">
                 <div class="card-content">
                     <h1>jQuery sort<span class="hide-on-med-and-down"> </span>Scroll <span>v1.2.0</span></h1>
@@ -28,7 +28,7 @@
                 <li><a href="#about">About</a></li>
             </ul>
         </div>
-        <div class="col s12 m12 l9 sort-scroll-container" data-animation-duration="1000" data-keep-still=true>
+        <div class="col s12 m12 l9 offset-l3 sort-scroll-container" data-animation-duration="1000" data-keep-still=true data-fixed-elements-selector=".navigation">
             <a href="https://github.com/jadus/jquery-sortScroll" class="waves-effect waves-light btn-large main-action pink">View on GitHub</a>
             <div id="demo" class="card sort-scroll-element z-depth-1 section scrollspy">
                 <div class="card-content">
@@ -54,7 +54,7 @@
                     <h4>Set-up</h4>
                         <pre><code class="language-markup">&lt;!-- insert jQuery sortScroll after jQuery core -->
 &lt;script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js">&lt;/script>
-&lt;script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.2.0/jquery.sortScroll.min.js">&lt;/script></code></pre>
+&lt;script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.3.0/jquery.sortScroll.min.js">&lt;/script></code></pre>
                 </div>
             </div>
             <div id="basic-usage" class="card sort-scroll-element z-depth-1 section scrollspy">
@@ -70,8 +70,9 @@ you can use data attributes to change settings
 animationDuration : duration of the animation in ms (default : 1000)
 cssEasing : easing type for the animation (default : "ease-in-out")
 keepStill : if false the page doesn't scroll to follow the element (default : true)
+fixedElementsSelector : a jQuery selector so that the plugin knows your fixed elements (like the fixed nav on the left) (default : "")
 -->
-&lt;div class="sort-scroll-container" data-animation-duration="1000" data-css-easing="ease-in-out" data-keep-still=true>
+&lt;div class="sort-scroll-container" data-animation-duration="1000" data-css-easing="ease-in-out" data-keep-still=true data-fixed-elements-selector=".navigation">
     &lt;div class="sort-scroll-element">
         content1
         &lt;button class="sort-scroll-button-up">up&lt;/button>
@@ -118,7 +119,8 @@ keepStill : if false the page doesn't scroll to follow the element (default : tr
 $(".my-container-class").sortScroll({
     animationDuration: 1000,// duration of the animation in ms
     cssEasing: "ease-in-out",// easing type for the animation
-    keepStill: true// if false the page doesn't scroll to follow the element
+    keepStill: true,// if false the page doesn't scroll to follow the element
+    fixedElementsSelector: ""// a jQuery selector so that the plugin knows your fixed elements (like the fixed nav on the left)
 });</code></pre>
                 </div>
             </div>
@@ -191,7 +193,7 @@ $(".sort-scroll-container").on("sortScroll.sortEnd", function(event, element, in
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="materialize.min.js"></script>
 <script type="text/javascript" src="prism.js"></script>
-<script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.2.0/jquery.sortScroll.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/jadus/jquery-sortScroll/v1.3.0/jquery.sortScroll.min.js"></script>
 <script type="text/javascript">
     $(".sort-scroll-container").on("sortScroll.sortStart sortScroll.sortEnd", function (event, element, initialOrder, destinationOrder) {
         element.toggleClass("z-depth-1").toggleClass("z-depth-2")
