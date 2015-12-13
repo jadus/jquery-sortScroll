@@ -28,3 +28,9 @@ h1 span{
 .collection{
     border: none;
 }
+
+@media only screen and (min-width: 993px){
+   .col.l3{
+        position: fixed;
+    }
+}
