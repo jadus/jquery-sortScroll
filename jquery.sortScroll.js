@@ -1,5 +1,5 @@
 /*
- * jQuery sortScroll V1.2.0
+ * jQuery sortScroll V1.3.0
  * Sorting without moving !
  * The element being sorted will stay still while the rest of the page will scroll behind it.
  * https://github.com/jadus/jquery-sortScroll
@@ -13,7 +13,8 @@
     var defaults = {
         animationDuration: 1000,// duration of the animation in ms
         cssEasing: "ease-in-out",// easing type for the animation
-        keepStill: true// if false the page doesn't scroll to follow the element
+        keepStill: true,// if false the page doesn't scroll to follow the element
+        fixedElementsSelector: ""// a jQuery selector so that the plugin knows your fixed elements (like a fixed header)
     };
 
     function SortScroll(container, options) {
@@ -95,22 +96,21 @@
                 duration = self.settings.animationDuration,
                 cssEasing = self.settings.cssEasing,
                 body = $("body"),
-                initialElementStyleAttr = element.attr("style") || '',
-                initialOtherElementStyleAttr = otherElement.attr("style") || '',
-                initialBodyStyleAttr = body.attr("style") || '',
                 initialCssZIndex = element.css("z-index"),
                 elementDfd = $.Deferred(),
                 otherElementDfd = $.Deferred(),
                 bodyDfd = $.Deferred(),
                 transitionEndEvent = "transitionend webkitTransitionEnd msTransitionEnd oTransitionEnd",
+                styleString = "style",
                 sortingZIndex;
-
 
             sortingZIndex = (initialCssZIndex === "auto") ? 2 : initialCssZIndex + 1;
 
             //animating
             self.container.trigger("sortScroll.sortStart", [element, initialOrder, destinationOrder]);
             self._sorting = true;
+            element.data(styleString,element.attr(styleString));
+            otherElement.data(styleString,otherElement.attr(styleString));
             element.add(otherElement).css({
                 "position" : "relative",
                 "transition" : duration+"ms "+cssEasing
@@ -125,34 +125,46 @@
             if(keepStill) {
                 var initialScroll = $(window).scrollTop(),
                     finalScroll = initialScroll + relativeElementY,
-                    maxScroll = Math.max(0, document.documentElement.scrollHeight - document.documentElement.clientHeight);
+                    maxScroll = Math.max(0, document.documentElement.scrollHeight - document.documentElement.clientHeight),
+                    fixedElements = $(self.settings.fixedElementsSelector).filter(function(){
+                        return $(this).css("position") === "fixed";
+                    });
 
                 finalScroll = Math.min(finalScroll, maxScroll);
                 finalScroll = Math.max(finalScroll, 0);
 
-                body.css({
+                body.data(styleString,body.attr(styleString)||"").css({
                     "transition" : duration+"ms "+cssEasing,
                     "margin-top": ( initialScroll - finalScroll ) + "px"
                 });
+                fixedElements.each(function(){
+                    $(this).data(styleString,$(this).attr(styleString) || "")
+                }).css({
+                    "transition" : duration+"ms "+cssEasing,
+                    "margin-top": -( initialScroll - finalScroll ) + "px"
+                })
             }
 
             //after animation
-            element.on(transitionEndEvent, function () {
+            element.one(transitionEndEvent, function () {
                 elementDfd.resolve();
             })
-            otherElement.on(transitionEndEvent, function () {
+            otherElement.one(transitionEndEvent, function () {
                 otherElementDfd.resolve();
             })
-            body.on(transitionEndEvent, function () {
+            body.one(transitionEndEvent, function () {
                 bodyDfd.resolve();
             })
             $.when(elementDfd, otherElementDfd, bodyDfd).done(function () {
                 //back to initial style
-                element.attr("style",initialElementStyleAttr);
-                otherElement.attr("style",initialOtherElementStyleAttr);
-                body.attr("style",initialBodyStyleAttr);
+                element.attr(styleString,element.data(styleString));
+                otherElement.attr(styleString,otherElement.data(styleString));
+                body.attr(styleString,body.data(styleString));
                 if(keepStill) {
                     $("html, body").scrollTop(finalScroll + ($(window).scrollTop() - initialScroll));
+                    fixedElements.each(function(){
+                        $(this).attr(styleString,$(this).data(styleString));
+                    });
                 }
                 element.removeClass(self.sortingClass);
 
