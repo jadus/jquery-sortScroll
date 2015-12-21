@@ -33,4 +33,7 @@ h1 span{
    .col.l3{
         position: fixed;
     }
+    .row .col.l9 {
+        margin-left: 25%
+    }
 }
